@@ -9,7 +9,7 @@ podTemplate(containers: [
   
   volumes: [
   persistentVolumeClaim(
-      mountPath: '/root/.m2/repository', 
+      mountPath: '/root/.m2/repository',
       claimName: 'jenkins-pv-claim', 
       readOnly: false
       )
@@ -18,10 +18,15 @@ podTemplate(containers: [
 {
   node(POD_LABEL) {
     stage('Build Petclinic Java App') {
-      git 'https://github.com/chhunkim3/simple-java-maven-app.git', branch: 'master'
-      container('maven') {
-        sh 'mvn -B -ntp clean package -DskipTests'
-      }
-    }
+        git 'https://github.com/chhunkim3/simple-java-maven-app.git'
+            container('maven') {
+                stage('Build a Maven project') {
+                    sh '''
+                    echo "maven build"
+                    mvn -B -ntp clean package -DskipTests
+                    '''
+                }
+            }
+        }
   }
 }

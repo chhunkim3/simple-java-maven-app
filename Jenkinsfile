@@ -10,7 +10,7 @@ podTemplate(containers: [
   volumes: [
   persistentVolumeClaim(
       mountPath: '/root/.m2/repository', 
-      claimName: 'maven-repo-storage', 
+      claimName: 'jenkins-pv-claim', 
       readOnly: false
       )
   ]) 
